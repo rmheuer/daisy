@@ -53,6 +53,4 @@ void loop() {
   // cv_out_2, C1 led on front panel
   float cv_out_2 = max(0.0f, cv_out_1);
   patch.WriteCvOut(PIN_PATCH_SM_CV_OUT_2, cv_out_2);
-
 }
-

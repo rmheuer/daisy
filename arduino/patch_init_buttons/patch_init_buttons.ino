@@ -71,6 +71,4 @@ void loop() {
     cv_out_2 = 1.0;
   }
   patch.WriteCvOut(PIN_PATCH_SM_CV_OUT_2, cv_out_2);
-
 }
-
