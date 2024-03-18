@@ -39,22 +39,23 @@ void audioCallback(float** in, float** out, size_t size) {
   float cv_7 = patch.controls[6].Process();
   float cv_8 = patch.controls[7].Process();
 
-  // cv_out_1, C10 output jack
+
   float cv_out_1 = cv_1 + (cv_2 * 0.5f) + (cv_3 * 0.25f) + (cv_4 * 0.125f)
     + cv_5 + (cv_6 * 0.5f) + (cv_7 * 0.25f) + (cv_8 * 0.125f);
 
-  // clamp between -1.0f and 1.0f
-  cv_out_1 = min(1.0f, max(-1.0f, cv_out_1));
+  // constrain between -1.0f and 1.0f
+  cv_out_1 = constrain(cv_out_1, -1.0f, 1.0f);
 
-  // multiply by 5.0f for -5.0v to 5.0v
-  patch.WriteCvOut(PIN_PATCH_SM_CV_OUT_1, cv_out_1 * 5.0f);
+  // map to 0.0v to 5.0v range
+  cv_out_1 = mapf(cv_out_1, -1.0f, 1.0f, 0.0f, 5.0f);
+
+
+  // cv_out_1, C10 output jack
+  patch.WriteCvOut(PIN_PATCH_SM_CV_OUT_1, cv_out_1);
 
   // cv_out_2, C1 led on front panel
-  // clamp between 0.0f and 1.0f
-  float cv_out_2 = max(0.0f, cv_out_1);
+  patch.WriteCvOut(PIN_PATCH_SM_CV_OUT_2, cv_out_1);
 
-  // multiply by 5.0f for 0.0v to 5.0v
-  patch.WriteCvOut(PIN_PATCH_SM_CV_OUT_2, cv_out_2 * 5.0f);
 
   // buffer audio in to audio out on both L and R channels
   for (size_t i = 0; i < size; i++) {
@@ -73,4 +74,8 @@ void setup() {
 
 void loop() {
   // empty
+}
+
+float mapf(float x, float in_min, float in_max, float out_min, float out_max) {
+  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }

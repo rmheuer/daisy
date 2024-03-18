@@ -57,16 +57,24 @@ void loop() {
   // cv_8, CV_8 input jack
   float cv_8 = patch.AnalogReadToVolts(analogRead(PIN_PATCH_SM_CV_8));
 
-  // cv_out_1, C10 output jack
+
   float cv_out_1 = cv_1 + (cv_2 * 0.5f) + (cv_3 * 0.25f) + (cv_4 * 0.125f)
     + cv_5 + (cv_6 * 0.5f) + (cv_7 * 0.25f) + (cv_8 * 0.125f);
 
-  // clamp between -5.0v and 5.0v
-  cv_out_1 = min(5.0f, max(-5.0f, cv_out_1));
+  // constrain between -5.0v and 5.0v
+  cv_out_1 = constrain(cv_out_1, -5.0f, 5.0f);
+
+  // map to 0.0v to 5.0v range
+  cv_out_1 = mapf(cv_out_1, -5.0f, 5.0f, 0.0f, 5.0f);
+
+
+  // cv_out_1, C10 output jack
   patch.WriteCvOut(PIN_PATCH_SM_CV_OUT_1, cv_out_1);
 
   // cv_out_2, C1 led on front panel
-  // clamp between 0.0v and 5.0v
-  float cv_out_2 = max(0.0f, cv_out_1);
-  patch.WriteCvOut(PIN_PATCH_SM_CV_OUT_2, cv_out_2);
+  patch.WriteCvOut(PIN_PATCH_SM_CV_OUT_2, cv_out_1);
+}
+
+float mapf(float x, float in_min, float in_max, float out_min, float out_max) {
+  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
