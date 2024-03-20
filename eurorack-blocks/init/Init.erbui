@@ -1,0 +1,148 @@
+/*
+
+    mplsartindustry/daisy
+    Copyright (c) 2024 held jointly by the individual authors.
+
+    This file is part of mplsartindustry/daisy.
+
+    mplsartindustry/daisy is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    mplsartindustry/daisy is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with mplsartindustry/daisy.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
+module Init {
+  board kivu12
+  material pcb
+  header { label "patch.Init()" }
+
+  route manual
+
+  control cv_out_2 Led {
+    position 29.5011mm, 19.6239mm
+    style red
+  }
+
+  control cv_1 Pot {
+    position 15.2511mm, 23.2520mm
+    style rogan, 2ps
+    label "CV_1"
+  }
+
+  control cv_2 Pot {
+    position 43.5711mm, 23.2520mm
+    style rogan, 2ps
+    label "CV_2"
+  }
+
+  control cv_3 Pot {
+    position 15.2511mm, 42.3612mm
+    style rogan, 2ps
+    label "CV_3"
+  }
+
+  control cv_4 Pot {
+    position 43.5711mm, 42.3612mm
+    style rogan, 2ps
+    label "CV_4"
+  }
+
+  control b7 Button {
+    position 12.7511mm, 59.5322mm
+    style ck, d6r, black
+    label "B7"
+  }
+
+  control b8 Switch {
+    position 29.5011mm, 62.2822mm
+    style on_on
+    label "B8"
+  }
+
+  control cv_out_1 CvOut {
+    position 46.2511mm, 59.5322mm
+    style hex
+    label "C10" { positioning bottom }
+  }
+
+  control gate_in_1 GateIn {
+    position 11.2511mm, 84.8119mm
+    style hex
+    label "B10"
+  }
+
+  control gate_in_2 GateIn {
+    position 23.4178mm, 84.8119mm
+    style hex
+    label "B9"
+  }
+
+  control gate_out_1 GateOut {
+    position 35.5844mm, 84.8119mm
+    style hex
+    label "B5"
+  }
+
+  control gate_out_2 GateOut {
+    position 47.7511mm, 84.8119mm
+    style hex
+    label "B6"
+  }
+
+  control cv_5 CvIn {
+    position 11.2511mm, 98.5619mm
+    style hex
+    label "CV_5"
+  }
+
+  control cv_6 CvIn {
+    position 23.4178mm, 98.5619mm
+    style hex
+    label "CV_6"
+  }
+
+  control cv_7 CvIn {
+    position 35.5844mm, 98.5619mm
+    style hex
+    label "CV_7"
+  }
+
+  control cv_8 CvIn {
+    position 47.7511mm, 98.5619mm
+    style hex
+    label "CV_8"
+  }
+
+  control audio_in_left AudioIn {
+    position 11.2511mm, 112.1500mm
+    style hex
+    label "IN_L[i]"
+  }
+
+  control audio_in_right AudioIn {
+    position 23.4178mm, 112.1500mm
+    style hex
+    label "IN_R[i]"
+    normalling audio_in_left
+  }
+
+  control audio_out_left AudioOut {
+    position 35.5844mm, 112.1500mm
+    style hex
+    label "OUT_L[i]"
+  }
+
+  control audio_out_right AudioOut {
+    position 47.7511mm, 112.1500mm
+    style hex
+    label "OUT_R[i]"
+  }
+}
