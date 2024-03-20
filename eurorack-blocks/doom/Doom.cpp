@@ -21,6 +21,9 @@
 */
 #include "Doom.h"
 
+// see https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/m_random.c
+// Licensed GPL v2.0 https://github.com/id-Software/DOOM/blob/master/LICENSE.TXT
+
 int values[256] = {
     0,   8, 109, 220, 222, 241, 149, 107,  75, 248, 254, 140,  16,  66 ,
     74,  21, 211,  47,  80, 242, 154,  27, 205, 128, 161,  89,  77,  36 ,
