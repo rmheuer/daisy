@@ -75,8 +75,8 @@ void Doom::process() {
   float normalized_cv = mapf(cv, -5.0f, 5.0f, -1.0f, 1.0f);
   _offset = 255 * normalized_cv;
 
-  // gate_in_1 clock, also b7 momentary button, b8 toggle switch
-  if (ui.b7.pressed() || ui.gate_in_1.triggered() || ui.b8.position_first()) {
+  // gate_in_1 clock, also b7 momentary button
+  if (ui.b7.pressed() || ui.gate_in_1.triggered()) {
 
     // _offset _index
     int i = _index + _offset;
@@ -87,9 +87,14 @@ void Doom::process() {
       i = 256 + (i % 255);
     }
 
-    float cv_out = mapf(values[i], 0.0f, 255.0f, -1.0f, 1.0f);
-    ui.cv_out_1 = cv_out;
-    ui.cv_out_2 = cv_out;
+    float low = -1.0f;
+    if (ui.b8.position_first()) {
+      low = 0.0f;
+    }
+    float cv_out_1 = mapf(values[i], 0.0f, 255.0f, low, 1.0f);
+    float cv_out_2 = mapf(values[i], 0.0f, 255.0f, 0.1f, 1.0f);
+    ui.cv_out_1 = cv_out_1;
+    ui.cv_out_2 = cv_out_2;
 
     _index++;
     if (_index > 255) {
@@ -101,6 +106,10 @@ void Doom::process() {
   if (ui.gate_in_2.triggered()) {
     _index = 0;
   }
+
+  // buffer gates
+  ui.gate_out_1 = ui.gate_in_1;
+  ui.gate_out_2 = ui.gate_in_2;
 
   // buffer audio
   ui.audio_out_left = ui.audio_in_left;
